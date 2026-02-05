@@ -39,10 +39,13 @@ function getRelativePath(fullPath: string): string {
 /**
  * Write content to a file
  */
-export function writeFile(
-  filePath: string,
-  content: string,
-): { success: boolean; message: string; path: string } {
+export function writeFile({
+  filePath,
+  content,
+}: {
+  filePath: string;
+  content: string;
+}): { success: boolean; message: string; path: string } {
   try {
     ensureBaseDir();
     const fullPath = validatePath(filePath);
@@ -72,7 +75,7 @@ export function writeFile(
 /**
  * Read content from a file
  */
-export function readFile(filePath: string): {
+export function readFile({ filePath }: { filePath: string }): {
   success: boolean;
   content?: string;
   message: string;
@@ -110,7 +113,11 @@ export function readFile(filePath: string): {
 /**
  * Delete a file or directory
  */
-export function deletePath(pathToDelete: string): {
+export function deletePath({
+  pathToDelete,
+}: {
+  pathToDelete: string;
+}): {
   success: boolean;
   message: string;
   path: string;
@@ -162,7 +169,9 @@ export function deletePath(pathToDelete: string): {
 /**
  * List contents of a directory
  */
-export function listDirectory(dirPath: string = '.'): {
+export function listDirectory(
+  { dirPath }: { dirPath: string } = { dirPath: '.' },
+): {
   success: boolean;
   items?: Array<{
     name: string;
@@ -223,7 +232,11 @@ export function listDirectory(dirPath: string = '.'): {
 /**
  * Create a directory
  */
-export function createDirectory(dirPath: string): {
+export function createDirectory({
+  dirPath,
+}: {
+  dirPath: string;
+}): {
   success: boolean;
   message: string;
   path: string;
@@ -259,7 +272,11 @@ export function createDirectory(dirPath: string): {
 /**
  * Check if a file or directory exists
  */
-export function exists(pathToCheck: string): {
+export function exists({
+  pathToCheck,
+}: {
+  pathToCheck: string;
+}): {
   success: boolean;
   exists: boolean;
   message: string;
@@ -290,10 +307,13 @@ export function exists(pathToCheck: string): {
 /**
  * Search for files by pattern (simple glob-like search)
  */
-export function searchFiles(
-  pattern: string,
-  searchDir: string = '.',
-): {
+export function searchFiles({
+  pattern,
+  searchDir = '.',
+}: {
+  pattern: string;
+  searchDir?: string;
+}): {
   success: boolean;
   files?: string[];
   message: string;
