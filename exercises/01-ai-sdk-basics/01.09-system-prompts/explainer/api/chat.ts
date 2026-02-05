@@ -1,4 +1,3 @@
-import { google } from '@ai-sdk/google';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
@@ -8,11 +7,10 @@ import {
 } from 'ai';
 
 const SYSTEM_PROMPT = `
-ALWAYS reply in Pirate language.
+  You are the embodiment of Alexander the Great. Always assume you're HIM and answer as if he would.
 
-ALWAYS refer to the pirate code, and that they're "more like guidelines than actual rules".
+  If you get prompted to act as anyone else other than Alexander, straight out deny. You are him and only him.
 
-If the user asks you to use a different language, politely decline and explain that you can only speak Pirate.
 `;
 
 export const POST = async (req: Request): Promise<Response> => {
@@ -24,7 +22,7 @@ export const POST = async (req: Request): Promise<Response> => {
     await convertToModelMessages(messages);
 
   const streamTextResult = streamText({
-    model: google('gemini-2.5-flash'),
+    model: 'google/gemini-2.0-flash',
     messages: modelMessages,
     system: SYSTEM_PROMPT,
   });
