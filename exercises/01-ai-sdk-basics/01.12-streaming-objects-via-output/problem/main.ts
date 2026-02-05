@@ -1,11 +1,8 @@
-import { google } from '@ai-sdk/google';
-import { generateText, Output, streamText } from 'ai';
+import { Output, streamText } from 'ai';
 import z from 'zod';
 
-const model = google('gemini-2.5-flash');
-
 const stream = streamText({
-  model,
+  model: 'google/gemini-2.0-flash',
   prompt:
     'Give me the first paragraph of a story about an imaginary planet.',
 });
@@ -19,8 +16,8 @@ const finalText = await stream.text;
 // TODO: Replace generateText with streamText, keeping the same
 // Output.object with the facts schema from 01.10
 // Then use partialOutputStream to iterate over streaming chunks
-const factsResult = await generateText({
-  model,
+const factsResult = streamText({
+  model: 'google/gemini-2.0-flash',
   prompt: `Give me some facts about the imaginary planet. Here's the story: ${finalText}`,
   output: Output.object({
     schema: z.object({
@@ -35,4 +32,6 @@ const factsResult = await generateText({
 
 // TODO: Replace this with a for-await loop over factsResult.partialOutputStream
 // Log each partial object as it arrives
-console.log(factsResult.output);
+for await (const chunk of factsResult.partialOutputStream) {
+  console.log(chunk);
+}

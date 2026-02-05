@@ -1,8 +1,8 @@
-import { google } from '@ai-sdk/google';
 import { devToolsMiddleware } from '@ai-sdk/devtools';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
+  gateway,
   streamText,
   wrapLanguageModel,
   type ModelMessage,
@@ -13,7 +13,7 @@ import {
 // Run `npx @ai-sdk/devtools@latest` in a separate terminal
 // Then open http://localhost:4983 to see LLM calls
 const model = wrapLanguageModel({
-  model: google('gemini-2.5-flash'),
+  model: gateway('google/gemini-2.0-flash'),
   middleware: devToolsMiddleware(),
 });
 
