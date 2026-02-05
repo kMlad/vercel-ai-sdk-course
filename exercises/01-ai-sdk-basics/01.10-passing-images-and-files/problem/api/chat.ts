@@ -1,4 +1,3 @@
-import { google } from '@ai-sdk/google';
 import {
   convertToModelMessages,
   createUIMessageStreamResponse,
@@ -16,7 +15,7 @@ export const POST = async (req: Request): Promise<Response> => {
     await convertToModelMessages(messages);
 
   const streamTextResult = streamText({
-    model: google('gemini-2.5-flash'),
+    model: 'google/gemini-2.5-flash',
     messages: modelMessages,
   });
 
